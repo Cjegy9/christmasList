@@ -1,22 +1,18 @@
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
+const userRouter = require("./routers/user");
 const port = 3000;
 
-app.use(express.json());
+const MONGOURL =
+  "mongodb+srv://eystercolin:cesokker12@cluster0-5l6wr.gcp.mongodb.net/test?retryWrites=true&w=majority";
 
-app.post("/api/login", (req, res) => {
-  console.log("req", req.body);
-  const { username, password } = req.body;
-  if (username === "eystercolin" && password === "cesokker12") {
-    console.log("LOGIN!");
-    res.status(200).send({
-      success: true
-    });
-  } else {
-    res.status(404).send({
-      success: false
-    });
-  }
+mongoose.connect(MONGOURL, {
+  useNewUrlParser: true,
+  useCreateIndex: true
 });
+
+app.use(express.json());
+app.use(userRouter);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
