@@ -8,6 +8,19 @@ const Login = props => {
 
   const handleUsernameChange = event => setUsername(event.target.value);
   const handlePasswordChange = event => setPassword(event.target.value);
+  const login = () => {
+    console.log(username, password);
+    fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username,
+        password
+      })
+    });
+  };
 
   return (
     <Container
@@ -30,7 +43,7 @@ const Login = props => {
         type="password"
         onChange={handlePasswordChange}
       />
-      <Button color="primary" onClick={() => console.log(username, password)}>
+      <Button color="primary" onClick={() => login()}>
         Login
       </Button>
     </Container>

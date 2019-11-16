@@ -4,7 +4,6 @@ import CreateList from "../components/createList";
 
 const Home = props => (
   <div>
-    <Login />
     <CreateList />
   </div>
 );
