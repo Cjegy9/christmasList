@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cookies from "universal-cookie";
+import { connect } from "react-redux";
 
 const cookies = new Cookies();
 
@@ -40,6 +41,7 @@ const SignIn = props => {
       .then(res => res.json())
       .then(data => {
         console.log("res", data);
+        props.dispatch({ type: "LOGIN", payload: data });
         cookies.set("jwt", data.token, { path: "/" });
         //localStorage.setItem("jwt", data.token);
         //window.location.href = "/";
@@ -98,4 +100,9 @@ const styles = {
   }
 };
 
-export default SignIn;
+const mapStateToProps = (state, props) => {
+  console.log("MAPPING", state, props);
+  return {};
+};
+
+export default connect(mapStateToProps)(SignIn);
